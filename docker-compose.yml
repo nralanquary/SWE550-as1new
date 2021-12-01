@@ -1,0 +1,50 @@
+version: '3'
+services:
+  
+  client:
+    build: ./client
+    stdin_open: true
+    ports:
+      - 3000:3000
+    expose:
+      - 3000
+    volumes:
+      - ./src:/app/src
+      - ./public:/app/public
+      - node-modules: '/app/node_modules'
+    networks:
+      - frontend 
+    command: npm start   
+    
+  api:
+    build: ./api
+    ports:
+      - "5000:5000"
+    command: npm start
+    volumes:
+      - ./api:/srv/app/api
+    networks:
+      - backend
+      - frontend
+    depends_on:
+      - sql-server-db
+
+  sql-server-db:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    ports:
+      - "1433:1433"
+    environment:
+      SA_PASSWORD: "aqnourahserver"
+      ACCEPT_EULA: "Y"
+    networks:
+      - backend
+
+networks:
+  backend:
+  frontend:
+  #my-app:
+    #driver: bridge
+volumes:
+  node-modules:
+  #db:
+    #driver: local
