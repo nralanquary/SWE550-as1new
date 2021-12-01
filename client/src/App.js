@@ -76,7 +76,7 @@ function App() {
         <button onClick={() => createEmployees()}>..   Create   ..</button> 
         <br/>
         <input name="Count" placeholder="Count" onChange={setlnput}></input> 
-        <button onClick={() => fetchData()}>..Retrieve by Firstname..</button>
+        <button onClick={() => fetchData()}>..Retrieve by Count..</button>
         {
           employees.map(employee => (
             <div key={employee._id}>
