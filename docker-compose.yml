@@ -6,15 +6,12 @@ services:
     stdin_open: true
     ports:
       - 3000:3000
-    expose:
-      - 3000
     volumes:
-      - ./src:/app/src
-      - ./public:/app/public
+      - ./client:/app/client
       - node-modules: '/app/node_modules'
+    command: npm start  
     networks:
-      - frontend 
-    command: npm start   
+      - mern-app  
     
   api:
     build: ./api
@@ -22,29 +19,24 @@ services:
       - "5000:5000"
     command: npm start
     volumes:
-      - ./api:/srv/app/api
+      - ./api:/app/api
     networks:
-      - backend
-      - frontend
+      - mern-app
     depends_on:
-      - sql-server-db
+      - mongo
 
-  sql-server-db:
-    image: mcr.microsoft.com/mssql/server:2019-latest
+  mongo:
+    image: mongo:3.6.19-xenial
     ports:
-      - "1433:1433"
-    environment:
-      SA_PASSWORD: "aqnourahserver"
-      ACCEPT_EULA: "Y"
+      - "27017:27017"
     networks:
-      - backend
+      - mern-app
+    volumes:
+      - mongo-data:/data/db
 
 networks:
-  backend:
-  frontend:
-  #my-app:
-    #driver: bridge
+  mern-app:
+    driver: bridge
 volumes:
-  node-modules:
-  #db:
-    #driver: local
+  mongo-data:
+    driver: local
