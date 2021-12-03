@@ -8,7 +8,6 @@ services:
       - 3000:3000
     volumes:
       - ./client:/app/client
-      - node-modules: '/app/node_modules'
     command: npm start  
     networks:
       - mern-app  
