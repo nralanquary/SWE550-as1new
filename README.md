@@ -9,12 +9,11 @@ Connecting MongoDB to a NodeJS / Express JS backend of a React JS app.
 The Database Schema: 
 
  const employeeSchema = new mongoose.Schema({
-    // _id
-    "EmployeeID": Number,
-    "Firstname": String,
-    "Lastname": String,
-    "Age": Number,
-    "Gender": String
+"EmployeeID": Number,
+"Firstname": String,
+"Lastname": String,
+"Age": Number,
+"Gender": String
 }); 
        
 
